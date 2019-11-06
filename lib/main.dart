@@ -8,11 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'uber clone',
+      title: 'Sundo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'UberClone'),
+      home: MyHomePage(title: 'Sundo'),
     );
+
   }
 }

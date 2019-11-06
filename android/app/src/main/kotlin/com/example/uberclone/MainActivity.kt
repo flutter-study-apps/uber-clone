@@ -1,4 +1,4 @@
-package com.example.uberclone
+package com.digitapps.sundo
 
 import android.os.Bundle
 
