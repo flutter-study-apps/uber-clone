@@ -15,7 +15,7 @@ version: 1.0.0+1
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
-
+ 
 dependencies:
   flutter:
     sdk: flutter
@@ -36,6 +36,7 @@ dependencies:
   google_maps_flutter: ^0.5.11+1
   geoflutterfire: ^2.0.3+2
   location: ^2.3.5
+  uuid: ^2.0.2
 
 
 
