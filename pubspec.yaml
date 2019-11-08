@@ -25,7 +25,8 @@ dependencies:
   cupertino_icons: ^0.1.2
   
   firebase_core: ^0.4.0+9
-  cloud_firestore: ^0.12.9+6
+  # cloud_firestore: ^0.12.9+6
+  cloud_firestore: ^0.12.10
   firebase_auth: ^0.14.0+5
   firebase_database: ^3.0.7
 
@@ -33,7 +34,8 @@ dependencies:
   # firebase_auth: ^0.8.4+5
   # firebase_database: ^2.0.3
   rxdart: any
-  google_maps_flutter: ^0.5.11+1
+  # google_maps_flutter: ^0.5.11+1
+  google_maps_flutter: ^0.5.21+8
   geoflutterfire: ^2.0.3+2
   location: ^2.3.5
   uuid: ^2.0.2

@@ -61,7 +61,7 @@ class _MapState extends State<Map> {
           Stack(
             children: <Widget>[
               GoogleMap(
-                initialCameraPosition: CameraPosition(target: _initialPosition,   zoom: 17.0,),
+                initialCameraPosition: CameraPosition(target: _initialPosition,   zoom: 16.0,),
                 onMapCreated: onCreated,
                 myLocationEnabled: true,
                 mapType: MapType.normal,
@@ -181,7 +181,7 @@ class _MapState extends State<Map> {
         _markers.add(
           Marker(
             markerId:MarkerId(_lastPosition.toString()),
-            position: _lastPosition,
+            position: location,
             infoWindow: InfoWindow(
               title: "Address",
               snippet: "Go Here",
@@ -190,7 +190,9 @@ class _MapState extends State<Map> {
           ),
         ); 
       });
-    }
+    } 
+
+    
 
     // /add the polylines
     void createRoute(String encodedPoly){
@@ -266,7 +268,7 @@ class _MapState extends State<Map> {
       double longitude = placemark[0].position.longitude;
       LatLng destination = LatLng(latitude, longitude);
       _addMarker(destination, intendedLocation); 
-      String route = await _googleMapServices.getRouteCoordinate(_initialPosition, destination);
+      String route = await _googleMapServices.getRouteCoordinates(_initialPosition, destination);
       createRoute(route);
     }
 
