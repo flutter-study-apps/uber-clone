@@ -68,6 +68,7 @@ class _MapState extends State<Map> {
                 compassEnabled: true,
                 markers: _markers,
                 onCameraMove: _onCameraMove,
+                polylines: _polyLines,
               ),
               Positioned(
                 top: 50.0,
@@ -182,7 +183,7 @@ class _MapState extends State<Map> {
           Marker(
             markerId:MarkerId(_lastPosition.toString()),
             position: location,
-            infoWindow: InfoWindow(
+            infoWindow: InfoWindow( 
               title: "Address",
               snippet: "Go Here",
             ),
@@ -199,23 +200,36 @@ class _MapState extends State<Map> {
       setState(() {
         _polyLines.add(Polyline(
           polylineId: PolylineId(_lastPosition.toString()),
-          width: 10,
+          width: 3,
           points: convertToLatLng(decodePoly(encodedPoly)),
           color: Colors.black),
         );
+
+        print(convertToLatLng(decodePoly(encodedPoly)),);
+
       });
     }
 
     //this method will convert list of doubles into  latlng
-    List<LatLng> convertToLatLng(List points){
-      List<LatLng> result = <LatLng> [];
-      for (int i = 0; i<points.length; i++){
-        if (i%2 ==0){
-          result.add(LatLng(points[i-1], points[i]));
-        }
+    // List<LatLng> convertToLatLng(List points){
+    //   List<LatLng> result = <LatLng> [];
+    //   for (int i = 0; i<points.length; i++){
+    //     if (i%2 ==0){
+    //       result.add(LatLng(points[i-1], points[i]));
+    //     }
+    //   }
+    //   return result; 
+    // }
+    
+  List<LatLng> convertToLatLng(List points) {
+    List<LatLng> result = <LatLng>[];
+    for (int i = 0; i < points.length; i++) {
+      if (i % 2 != 0) {
+        result.add(LatLng(points[i - 1], points[i]));
       }
-      return result; 
     }
+    return result;
+  }
 
       
     // !DECODE POLY
@@ -258,7 +272,8 @@ class _MapState extends State<Map> {
       List<Placemark> placemark =  await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude); 
       setState(() {
         _initialPosition=LatLng(position.latitude, position.longitude); 
-        locationController.text =placemark[0].name;
+        // locationController.text =placemark[0].name;
+        locationController.text = placemark[0].subThoroughfare + ' ' + placemark[0].thoroughfare + ', ' +placemark[0].locality;
       });
     }
     // When the user type something in the textbox it will show the placemark 
