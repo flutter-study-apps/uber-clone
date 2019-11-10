@@ -61,14 +61,17 @@ class _MapState extends State<Map> {
           Stack(
             children: <Widget>[
               GoogleMap(
+                // indoorViewEnabled: true,
+                trafficEnabled: true,
                 initialCameraPosition: CameraPosition(target: _initialPosition,   zoom: 16.0,),
                 onMapCreated: onCreated,
                 myLocationEnabled: true,
-                mapType: MapType.normal,
+                mapType: MapType.satellite,
                 compassEnabled: true,
                 markers: _markers,
                 onCameraMove: _onCameraMove,
                 polylines: _polyLines,
+                
               ),
               Positioned(
                 top: 50.0,
@@ -194,10 +197,11 @@ class _MapState extends State<Map> {
     } 
 
     
-
     // /add the polylines
     void createRoute(String encodedPoly){
       setState(() {
+
+    _polyLines.clear();
         _polyLines.add(Polyline(
           polylineId: PolylineId(_lastPosition.toString()),
           width: 3,
