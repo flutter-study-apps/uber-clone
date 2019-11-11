@@ -35,7 +35,7 @@ class AppState with ChangeNotifier{
     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     List<Placemark> placemark =  await Geolocator().placemarkFromCoordinates(position.latitude, position.longitude); 
       _initialPosition=LatLng(position.latitude, position.longitude); 
-      // locationController.text =placemark[0].name;
+
       locationController.text = placemark[0].subThoroughfare + ' ' + placemark[0].thoroughfare + ', ' +placemark[0].locality;
       notifyListeners();
   }

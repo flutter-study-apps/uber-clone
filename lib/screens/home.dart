@@ -31,18 +31,24 @@ class Map extends StatefulWidget {
 }
 
 class _MapState extends State<Map> {
-  
-
-
-
   @override
       @override
       Widget build(BuildContext context) {
         final appState = Provider.of<AppState>(context);
 
-        return appState.initalPosition == null? Container(
-          alignment: Alignment.center,
-          child: CircularProgressIndicator(),
+        return appState.initalPosition == null? 
+          Container(
+            alignment: Alignment.center,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  CircularProgressIndicator(),
+                  SizedBox(height: 20,),
+                  Text("Please enable location services!", style: TextStyle(color: Colors.grey, fontSize: 18),),
+                ],
+              ),
+            ),
           ) :
           Stack(
             children: <Widget>[
