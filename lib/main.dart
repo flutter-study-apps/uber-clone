@@ -3,15 +3,26 @@ import 'package:provider/provider.dart';
 import 'package:uberclone/states/app_states.dart';
 import 'screens/home.dart';
 
-void main() => runApp(
-  //if we do big app, use multiprovider, so that we can use multiple provider for different concerns
-  MultiProvider(
-    providers: [
+
+
+// void main() => WidgetsFlutterBinding.ensureInitialized() =>runApp(
+//   //if we do big app, use multiprovider, so that we can use multiple provider for different concerns
+//   MultiProvider(
+//     providers: [
+//       ChangeNotifierProvider.value(value: AppState(),)
+//     ],
+//     child: MyApp(),
+//   )
+// );
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  return runApp(MultiProvider(providers: [
       ChangeNotifierProvider.value(value: AppState(),)
-    ],
-    child: MyApp(),
-  )
-);
+  ],
+  child: MyApp(),));
+}
+
 
 
 class MyApp extends StatelessWidget {
