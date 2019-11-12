@@ -7,10 +7,10 @@ import '../states/app_states.dart';
 String selectedPlace = "";
 
 class AutoComplete extends StatefulWidget {
-  // String distination;
+  // String distination = "sm";
   // AutoComplete(this.distination);
   String destination ;
-  AutoComplete(this.destination);
+  // AutoComplete(this.destination);
   @override
   _AutoCompleteState createState() => _AutoCompleteState();
 }
@@ -79,7 +79,7 @@ class _AutoCompleteState extends State<AutoComplete> {
 
 
 Future<List<SuggestedPlaces>>getCountries() async{
-  final response = await http .get('https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=AIzaSyB8jxZ33qr3HXTSKgXqx0mXbzQWzLjnfLU&input=${destination}');
+  final response = await http .get('https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=AIzaSyB8jxZ33qr3HXTSKgXqx0mXbzQWzLjnfLU&input=${selectedPlace}');
 
   if(response.statusCode == 200){
     var parsedPlacesList = json.decode(response.body);

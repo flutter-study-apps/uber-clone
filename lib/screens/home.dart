@@ -3,6 +3,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:uberclone/states/app_states.dart';
+
+import 'autocomplete.dart';
 // import '../requests/google_maps_request.dart';
 // import '../utils/core.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -56,6 +58,11 @@ class _MapState extends State<Map> {
                 onCameraMove: appState.onCameraMove,
                 polylines: appState.polyline,
                 
+              ),
+              Positioned(
+                left: 50,
+                top: 20,
+                child: Text(appState.autocomplete.toString()),
               ),
               Positioned(
                 top: 50.0,
@@ -121,6 +128,7 @@ class _MapState extends State<Map> {
                     onSubmitted: (value) {
                       appState.sendRequest(value);
                     },
+                    onChanged: (value){appState.increment();},
                     decoration: InputDecoration(
                       icon: Container(
                         margin: EdgeInsets.only(left: 20, top: 5),

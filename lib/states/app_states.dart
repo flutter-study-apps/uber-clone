@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uberclone/requests/google_maps_request.dart';
+import '../screens/autocomplete.dart';
 
 class AppState with ChangeNotifier{
   static LatLng _initialPosition;
@@ -10,11 +11,14 @@ class AppState with ChangeNotifier{
   final Set<Marker> _markers = {};
   final Set<Polyline> _polyLines = {};
   GoogleMapController _mapController;
+  int _autoComplete =  0;
+
 
   // Setters
   GoogleMapsServices _googleMapServices  = GoogleMapsServices();
   TextEditingController locationController =TextEditingController();
   TextEditingController destinationControler=TextEditingController();
+  // num _autoComplete = 0;
 
   // Getters
   LatLng get initalPosition => _initialPosition;
@@ -23,12 +27,19 @@ class AppState with ChangeNotifier{
   GoogleMapController get mapController =>_mapController;
   Set<Marker> get markers => _markers;
   Set<Polyline> get polyline => _polyLines;
+  num get autocomplete => _autoComplete;
 
 
 
   //constructor for getuserlocation
   AppState(){
     _getUserLocation();
+  }
+
+
+  void increment(){
+    _autoComplete +=1;
+    notifyListeners();
   }
 
   void _getUserLocation() async{
