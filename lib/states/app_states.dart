@@ -1,9 +1,13 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uberclone/requests/google_maps_request.dart';
 import '../screens/autocomplete.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class AppState with ChangeNotifier{
   static LatLng _initialPosition;
@@ -11,8 +15,9 @@ class AppState with ChangeNotifier{
   final Set<Marker> _markers = {};
   final Set<Polyline> _polyLines = {};
   GoogleMapController _mapController;
-  int _autoComplete =  0;
-
+  List <SuggestedPlaces> _autoComplete ;
+  String selectedPlace = "sm";
+  bool autoCompleteContainer = false;
 
   // Setters
   GoogleMapsServices _googleMapServices  = GoogleMapsServices();
@@ -27,7 +32,7 @@ class AppState with ChangeNotifier{
   GoogleMapController get mapController =>_mapController;
   Set<Marker> get markers => _markers;
   Set<Polyline> get polyline => _polyLines;
-  num get autocomplete => _autoComplete;
+  List <SuggestedPlaces> get autocomplete => _autoComplete;
 
 
 
@@ -37,8 +42,19 @@ class AppState with ChangeNotifier{
   }
 
 
-  void increment(){
-    _autoComplete +=1;
+  void increment() async{
+    // _autoComplete +=1;
+    // _autoComplete += "blah " ;
+
+    _autoComplete = await getCountries();
+
+    // debugPrint(_autoComplete.toString());
+
+    notifyListeners();
+  }
+
+  void visibilityAutoComplete(bool visibleAuto){
+    autoCompleteContainer = visibleAuto;
     notifyListeners();
   }
 
@@ -153,6 +169,42 @@ class AppState with ChangeNotifier{
   }
 
 
+
+
+  Future<List<SuggestedPlaces>>getCountries() async{
+    final response = await http .get('https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=AIzaSyB8jxZ33qr3HXTSKgXqx0mXbzQWzLjnfLU&input=${destinationControler.text}');
+
+    if(response.statusCode == 200){
+      var parsedPlacesList = json.decode(response.body);
+
+      List<SuggestedPlaces> suggestedPlaces = List<SuggestedPlaces>();
+
+      parsedPlacesList["predictions"].forEach((suggestedPlace){
+        suggestedPlaces.add(SuggestedPlaces.fromJSON(suggestedPlace));
+      });
+      
+      return suggestedPlaces;
+    }else{
+      throw Exception('Failed to load');
+    }
+
+  }
+
+
+}
+
+
+
+class SuggestedPlaces {
+  String description;
+
+  SuggestedPlaces({this.description,});
+
+  factory SuggestedPlaces.fromJSON(Map<String,dynamic>json){
+    return SuggestedPlaces(
+      description: json['description'],
+    );
+  }
 
 
 }

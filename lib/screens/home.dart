@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:uberclone/states/app_states.dart';
 
-import 'autocomplete.dart';
+// import 'autocomplete.dart';
 // import '../requests/google_maps_request.dart';
 // import '../utils/core.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -67,9 +68,30 @@ class _MapState extends State<Map> {
               ),
               Positioned(
                 left: 50,
-                top: 20,
-                child: Text(appState.autocomplete.toString()),
+                top: 220,
+                child: Visibility(
+                  visible: appState.autoCompleteContainer==true,
+                  child: Container(
+                    width: 300,
+                    height: 500,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border:Border.all(style: BorderStyle.solid, color: Colors.black, width: 5,),
+                      borderRadius: BorderRadius.circular(3),
+                    ),
+                    // child: Text(appState.autocomplete.toString())
+                    child: FutureBuilder(
+                      future: appState.getCountries(),
+                      initialData: [],
+                      builder: (context,snapshot){
+                        return  createCountriesListView(context, snapshot);
+                        // debugPrint(appState.createCountriesListView(context, snapshot).toString());
+                      },
+                    ),
+                    ),
+                ),
               ),
+            
               Positioned(
                 top: 50.0,
                 right: 15.0,
@@ -132,9 +154,16 @@ class _MapState extends State<Map> {
                     controller:  appState.destinationControler,
                     textInputAction: TextInputAction.go,
                     onSubmitted: (value) {
+                      // appState.autoCompleteContainer = false;
+                      // appState.autoCompleteContainer = false;
+                      appState.visibilityAutoComplete(false);
                       appState.sendRequest(value);
+                      // appState.autoCompleteContainer = false;
                     },
-                    onChanged: (value){appState.increment();},
+                    onChanged: (value){
+                      appState.increment();
+                      appState.autoCompleteContainer = true;
+                    },
                     decoration: InputDecoration(
                       icon: Container(
                         margin: EdgeInsets.only(left: 20, top: 5),
@@ -163,6 +192,17 @@ class _MapState extends State<Map> {
               // ),
             ],
           );
+
+          
+
+
+
+
+
+
+
+
+
       }
     
 
@@ -170,6 +210,42 @@ class _MapState extends State<Map> {
 
   
 
+Widget createCountriesListView(BuildContext context, AsyncSnapshot snapshot) {
+  var values = snapshot.data;
+  return ListView.builder(
+   itemCount: values == null ? 0 : values.length,
+   itemBuilder: (BuildContext context, int index) {
+    final appState = Provider.of<AppState>(context);
+
+    return GestureDetector(
+     onTap: () {
+      // setState(() {
+       // selectedCountry = values[index].code;
+       appState.selectedPlace = values[index].description;
+      appState.sendRequest(values[index].description);
+      appState.visibilityAutoComplete(false);
+      // });
+
+       appState.destinationControler.text=appState.selectedPlace.toString();
+       appState.sendRequest(appState.toString());
+      //  appState.sendRequest(value);
+      // print(values[index].code);
+      print(appState.selectedPlace);
+     },
+     child: Column(
+      children: <Widget>[
+       new ListTile(
+        title: Text(values[index].description),
+       ),
+       Divider(
+        height: 2.0,
+       ),
+      ],
+     ),
+    );
+   },
+  );
+ }
 
 
 
