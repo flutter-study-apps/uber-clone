@@ -15,6 +15,8 @@ class AppState with ChangeNotifier{
   final Set<Marker> _markers = {};
   final Set<Polyline> _polyLines = {};
   GoogleMapController _mapController;
+
+  //for autocomplete
   List <SuggestedPlaces> _autoComplete ;
   String selectedPlace = "sm";
   bool autoCompleteContainer = false;
@@ -53,10 +55,7 @@ class AppState with ChangeNotifier{
     notifyListeners();
   }
 
-  void visibilityAutoComplete(bool visibleAuto){
-    autoCompleteContainer = visibleAuto;
-    notifyListeners();
-  }
+ 
 
   void _getUserLocation() async{
     Position position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
@@ -74,8 +73,6 @@ class AppState with ChangeNotifier{
     notifyListeners();
   }
                 
-   
-
   //Create Polyline as Map Route
   void createRoute(String encodedPoly){
     _polyLines.clear();
@@ -164,12 +161,14 @@ class AppState with ChangeNotifier{
     for (var i = 2; i < lList.length; i++) lList[i] += lList[i - 2];
 
     print(lList.toString());
-
+  
     return lList;
   }
 
-
-
+  void visibilityAutoComplete(bool visibleAutoComplete){
+    autoCompleteContainer = visibleAutoComplete;
+    notifyListeners();
+  }
 
   Future<List<SuggestedPlaces>>getCountries() async{
     final response = await http .get('https://maps.googleapis.com/maps/api/place/queryautocomplete/json?key=AIzaSyB8jxZ33qr3HXTSKgXqx0mXbzQWzLjnfLU&input=${destinationControler.text}');
@@ -187,13 +186,9 @@ class AppState with ChangeNotifier{
     }else{
       throw Exception('Failed to load');
     }
-
   }
 
-
 }
-
-
 
 class SuggestedPlaces {
   String description;
