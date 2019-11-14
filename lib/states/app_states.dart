@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:uberclone/requests/google_maps_request.dart';
-import '../screens/autocomplete.dart';
+// import '../screens/autocomplete.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -75,7 +75,7 @@ class AppState with ChangeNotifier{
                 
   //Create Polyline as Map Route
   void createRoute(String encodedPoly){
-    _polyLines.clear();
+    // _polyLines.clear();
       _polyLines.add(Polyline(
         polylineId: PolylineId(_lastPosition.toString()),
         width: 3,
@@ -113,9 +113,9 @@ class AppState with ChangeNotifier{
     double latitude = placemark[0].position.latitude;
     double longitude = placemark[0].position.longitude;
     LatLng destination = LatLng(latitude, longitude);
-    _addMarker(destination, intendedLocation); 
     String route = await _googleMapServices.getRouteCoordinates(initalPosition, destination);
     createRoute(route);
+    _addMarker(destination, intendedLocation); 
     notifyListeners();
   }
 
