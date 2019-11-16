@@ -38,6 +38,13 @@
             {
               "client_id": "138509476658-v3v8s7qsojt9dt52l3al90dr8b1vilt7.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "138509476658-tcsb34aoqhkod8g4db9piptfckib516u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.digitapps.sundo"
+              }
             }
           ]
         }

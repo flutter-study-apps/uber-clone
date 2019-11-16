@@ -1,7 +1,9 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:uberclone/states/app_states.dart';
 import 'screens/home.dart';
+import './screens/signIn_screen.dart';
 
 
 
@@ -32,9 +34,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Sundo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor:Colors.deepPurple,
+        accentColor:Colors.teal,primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Sundo'),
+      home: SignInScreen() ,
+      // home: MyHomePage(title: 'Sundo'),
     );
 
   }

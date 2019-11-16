@@ -35,12 +35,14 @@ class Map extends StatefulWidget {
 }
 
 class _MapState extends State<Map> {
-  
+ 
+
+
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
 
-    return appState.initalPosition == null? 
+    return    appState.initalPosition == null? 
       Container(
         alignment: Alignment.center,
         child: Center(
@@ -247,13 +249,5 @@ class _MapState extends State<Map> {
     },
     );
   }
-
-
-
-      
-    
-  
-
-
 
 }
