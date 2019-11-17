@@ -1,4 +1,4 @@
-package com.digitapps.sundo
+package com.digitapps.rideapp
 
 import android.os.Bundle
 

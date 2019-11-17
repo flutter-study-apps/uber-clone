@@ -25,6 +25,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Map(),
+      bottomNavigationBar: BottomNavigationBar(
+        items: ,
+      ),
     );
   }
 }
@@ -35,12 +38,14 @@ class Map extends StatefulWidget {
 }
 
 class _MapState extends State<Map> {
-  
+ 
+
+
   @override
   Widget build(BuildContext context) {
     final appState = Provider.of<AppState>(context);
 
-    return appState.initalPosition == null? 
+    return    appState.initalPosition == null? 
       Container(
         alignment: Alignment.center,
         child: Center(
@@ -69,28 +74,28 @@ class _MapState extends State<Map> {
           ),
            Visibility(
              visible: appState.autoCompleteContainer==true,
-                        child: Container(
-                margin: EdgeInsets.fromLTRB(15, 180, 15, 0),
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(3.0),
-                  color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey,
-                      offset: Offset(1.0, 5.0),
-                      blurRadius: 10,
-                      spreadRadius: 3)
-                  ],
-                ),
-                child: FutureBuilder(
-                  future: appState.getCountries(),
-                  initialData: [],
-                  builder: (context,snapshot){
-                    return  createCountriesListView(context, snapshot);
-                  },
-                ),
-             ),
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(15, 180, 15, 0),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3.0),
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey,
+                        offset: Offset(1.0, 5.0),
+                        blurRadius: 10,
+                        spreadRadius: 3)
+                    ],
+                  ),
+                  child: FutureBuilder(
+                    future: appState.getCountries(),
+                    initialData: [],
+                    builder: (context,snapshot){
+                      return  createCountriesListView(context, snapshot);
+                    },
+                  ),
+              ),
            ),
           Positioned(
             top: 50.0,
@@ -174,8 +179,10 @@ class _MapState extends State<Map> {
                   suffixIcon: IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: (){
-                      appState.destinationControler.text="";
-                  
+                      // appState.destinationControler.text="";
+                      appState.clearDestination();
+                      // GoogleMap
+                      
                     },
                   ),
                   icon: Container(
@@ -245,13 +252,5 @@ class _MapState extends State<Map> {
     },
     );
   }
-
-
-
-      
-    
-  
-
-
 
 }
