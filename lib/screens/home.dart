@@ -4,7 +4,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:uberclone/requests/google_maps_request.dart';
+import 'package:uberclone/screens/signIn_screen.dart';
 import 'package:uberclone/states/app_states.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+
+final GoogleSignIn googleSignIn = GoogleSignIn();
 
 // import 'autocomplete.dart';
 // import '../requests/google_maps_request.dart';
@@ -13,6 +18,8 @@ import 'package:uberclone/states/app_states.dart';
 
 class MyHomePage extends StatefulWidget {
   // to receive data from the call, constructor 
+  static String id='home_screen';
+
   MyHomePage({Key key, this.title}):super(key: key);
   final String title;
 
@@ -21,12 +28,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Map(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: ,
+      // bottomNavigationBar: BottomNavigationBar(
+      //   // items: ,
+      // ),
+      floatingActionButton: FloatingActionButton(
+      onPressed: (){
+        //  googleSignIn.signOut().then(console.log);
+        googleSignIn.signOut();
+         Navigator.pushNamed(context, SignInScreen.id);
+      },
+        child: Icon(Icons.exit_to_app),
       ),
     );
   }

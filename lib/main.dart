@@ -31,6 +31,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute:  MyHomePage.id,
+
+      routes: {
+         MyHomePage.id: (context) => MyHomePage(),
+         SignInScreen.id: (context) => SignInScreen(),
+        // WelcomeScreen.id: (context) => WelcomeScreen()  ,
+        // RegistrationScreen.id: (context) => RegistrationScreen(),
+        // ChatScreen.id: (context) => ChatScreen(),
+        
+      },
       debugShowCheckedModeBanner: false,
       title: 'Sundo',
       theme: ThemeData(
