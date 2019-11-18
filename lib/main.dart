@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute:  MyHomePage.id,
+      initialRoute:  SignInScreen.id,
 
       routes: {
          MyHomePage.id: (context) => MyHomePage(),

@@ -10,31 +10,49 @@ class SignInScreen extends StatefulWidget {
   _SignInScreenState createState() => _SignInScreenState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
-   bool isAuth = false;
-   
 
+class _SignInScreenState extends State<SignInScreen> {
+ bool isAuth = false;
 
   @override
-	  void initState(){
-	    super.initState();
-	    googleSignIn.onCurrentUserChanged.listen((account){
-	      if(account!=null){
-	        print('user Signed in! ${account.displayName}');
-	        setState(() {
-	          isAuth = true;
-	        });
-	      } else{
-	         setState(() {
-	           isAuth = false;
-	         });
-	      }
-	    });
+  void initState() {
+    super.initState();
+    // Detects when user signed in
+    googleSignIn.onCurrentUserChanged.listen((account) {
+      handleSignIn(account);
+    }, onError: (err) {
+      print('Error signing in: $err');
+    });
+    // Reauthenticate user when app is opened
+    // googleSignIn.signInSilently(suppressErrors: false).then((account) {
+    //   handleSignIn(account);
+    // }).catchError((err) {
+    //   print('Error signing in: $err');
+    // });
   }
 
-   login(){
-     googleSignIn.signIn();
-   }
+  handleSignIn(GoogleSignInAccount account) {
+    if (account != null) {
+      print('------------User signed in!: $account------------');
+      setState(() {
+        isAuth = true;
+      });
+    } else {
+      setState(() {
+        isAuth = false;
+      });
+    }
+  }
+
+  login() {
+    googleSignIn.signIn();
+  }
+
+  logout() {
+    googleSignIn.signOut();
+  }
+
+ 
 
   @override
   Widget build(BuildContext context) {
