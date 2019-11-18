@@ -60,6 +60,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/google_signin_button.png
+    - assets/images/google_signin_button_2.png
     - assets/images/upload.svg
     - assets/images/search.svg
     - assets/images/activity_feed.svg
